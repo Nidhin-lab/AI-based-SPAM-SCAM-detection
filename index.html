@@ -1,45 +1,1106 @@
-<!--
-  Hit RUN to see this project in action!
-  
-  This project will auto-refresh as you edit the HTML, CSS and JS. See README.md for more info (including how to disable auto-refresh and install packages).
--->
-
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>Replit</title>
-  <link href="style.css" rel="stylesheet" type="text/css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Scam Detector by Nidhin R</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Orbitron', monospace;
+  background: radial-gradient(ellipse at center, #001122 0%, #000510 50%, #000000 100%);
+  color: #00ffe0;
+  overflow-x: hidden;
+  min-height: 100vh;
+  cursor: crosshair;
+}
+
+.cyber-grid {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(0, 255, 224, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 224, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+  z-index: 1;
+  animation: gridPulse 4s ease-in-out infinite;
+}
+
+@keyframes gridPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+}
+
+.hologram-lines {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.scan-line {
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00ffe0, transparent);
+  animation: scanMove 4s linear infinite;
+}
+
+.scan-line:nth-child(1) { top: 20%; animation-delay: 0s; }
+.scan-line:nth-child(2) { top: 40%; animation-delay: 1s; }
+.scan-line:nth-child(3) { top: 60%; animation-delay: 2s; }
+.scan-line:nth-child(4) { top: 80%; animation-delay: 3s; }
+
+@keyframes scanMove {
+  0% { transform: translateX(-100%); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateX(100%); opacity: 0; }
+}
+
+.cyber-lights {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.light {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: #00ffe0;
+  border-radius: 50%;
+  box-shadow: 0 0 15px #00ffe0;
+  animation: lightBlink 2s ease-in-out infinite;
+}
+
+.light:nth-child(2n) {
+  background: #ff0080;
+  box-shadow: 0 0 15px #ff0080;
+  animation-delay: 0.5s;
+}
+
+.light:nth-child(3n) {
+  background: #8000ff;
+  box-shadow: 0 0 15px #8000ff;
+  animation-delay: 1s;
+}
+
+@keyframes lightBlink {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+.loading-screen {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at center, #001a33 0%, #000510 50%, #000000 100%);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  transition: opacity 1s ease;
+}
+
+.loading-content {
+  text-align: center;
+}
+
+.loading-logo {
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: #00ffe0;
+  text-shadow: 0 0 30px #00ffe0, 0 0 50px #00ffe0;
+  margin-bottom: 1rem;
+  animation: logoGlow 2s ease-in-out infinite;
+}
+
+.loading-brand {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ff0080;
+  text-shadow: 0 0 30px #ff0080, 0 0 50px #ff0080;
+  margin-bottom: 2rem;
+  animation: brandGlow 2s ease-in-out infinite;
+}
+
+@keyframes logoGlow {
+  0%, 100% { 
+    text-shadow: 0 0 30px #00ffe0, 0 0 50px #00ffe0;
+    transform: scale(1);
+  }
+  50% { 
+    text-shadow: 0 0 40px #00ffe0, 0 0 70px #00ffe0, 0 0 90px #00ffe0;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes brandGlow {
+  0%, 100% { 
+    text-shadow: 0 0 30px #ff0080, 0 0 50px #ff0080;
+    transform: scale(1);
+  }
+  50% { 
+    text-shadow: 0 0 40px #ff0080, 0 0 70px #ff0080, 0 0 90px #ff0080;
+    transform: scale(1.05);
+  }
+}
+
+.loading-spinner {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin: 2rem auto;
+}
+
+.spinner-ring {
+  position: absolute;
+  border: 3px solid transparent;
+  border-radius: 50%;
+  animation: spinRotate 2s linear infinite;
+}
+
+.ring-outer {
+  width: 100px;
+  height: 100px;
+  border-top: 3px solid #00ffe0;
+  animation-duration: 2s;
+}
+
+.ring-inner {
+  width: 80px;
+  height: 80px;
+  top: 10px;
+  left: 10px;
+  border-top: 3px solid #ff0080;
+  animation-duration: 1.5s;
+  animation-direction: reverse;
+}
+
+.spinner-core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  animation: coreFloat 3s ease-in-out infinite;
+}
+
+@keyframes spinRotate {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes coreFloat {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.2); }
+}
+
+.loading-text {
+  font-size: 1.2rem;
+  color: #00ffe0;
+  margin-bottom: 1.5rem;
+  animation: textPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes textPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.main-container {
+  position: relative;
+  z-index: 10;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  min-height: 100vh;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 1s ease;
+}
+
+.main-container.loaded {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.header-section {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.main-title {
+  font-size: 4.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 2rem;
+  color: #00ffe0;
+  text-shadow: 0 0 20px #00ffe0, 0 0 40px #00ffe0;
+  animation: glitchMain 3s ease-in-out infinite;
+  position: relative;
+}
+
+.brand-title {
+  font-size: 4.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 2rem;
+  color: #00ffe0;
+  text-shadow: 0 0 20px #00ffe0, 0 0 40px #00ffe0;
+  animation: glitchMain 3s ease-in-out infinite;
+  position: relative;
+}
+
+.main-title::before,
+.main-title::after,
+.brand-title::before,
+.brand-title::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.main-title::before,
+.brand-title::before {
+  color: #ff0080;
+  animation: glitchBefore 3s ease-in-out infinite;
+  z-index: -1;
+}
+
+.main-title::after,
+.brand-title::after {
+  color: #8000ff;
+  animation: glitchAfter 3s ease-in-out infinite;
+  z-index: -2;
+}
+
+@keyframes glitchMain {
+  0%, 90%, 100% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+}
+
+@keyframes glitchBefore {
+  0%, 90%, 100% { transform: translate(0); }
+  20% { transform: translate(2px, -2px); }
+  40% { transform: translate(2px, 2px); }
+  60% { transform: translate(-2px, -2px); }
+  80% { transform: translate(-2px, 2px); }
+}
+
+@keyframes glitchAfter {
+  0%, 90%, 100% { transform: translate(0); }
+  20% { transform: translate(-2px, -2px); }
+  40% { transform: translate(-2px, 2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+}
+
+.detector-panel {
+  background: rgba(0, 17, 34, 0.9);
+  border: 2px solid #00ffe0;
+  border-radius: 20px;
+  padding: 2.5rem;
+  margin-bottom: 4rem;
+  box-shadow: 0 0 40px rgba(0, 255, 224, 0.3), inset 0 0 40px rgba(0, 255, 224, 0.1);
+  backdrop-filter: blur(20px);
+  position: relative;
+  overflow: hidden;
+}
+
+.detector-panel::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #00ffe0, #ff0080, #8000ff, #00ffe0);
+  background-size: 400% 400%;
+  animation: borderFlow 4s ease-in-out infinite;
+  z-index: -1;
+  border-radius: 20px;
+}
+
+@keyframes borderFlow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(0, 255, 224, 0.3);
+}
+
+.status-icon {
+  font-size: 1.5rem;
+  animation: iconPulse 2s ease-in-out infinite;
+}
+
+@keyframes iconPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.panel-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #00ffe0;
+  text-shadow: 0 0 15px #00ffe0;
+  letter-spacing: 0.1em;
+}
+
+.status-online {
+  font-size: 0.9rem;
+  animation: statusBlink 2s ease-in-out infinite;
+}
+
+@keyframes statusBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.input-section {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.input-area {
+  flex: 1;
+}
+
+.input-label {
+  display: block;
+  font-size: 1rem;
+  color: #00ffe0;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-shadow: 0 0 10px #00ffe0;
+}
+
+.message-input {
+  width: 100%;
+  min-height: 150px;
+  padding: 1rem;
+  background: rgba(0, 34, 68, 0.8);
+  border: 2px solid #004466;
+  border-radius: 10px;
+  color: #00ffe0;
+  font-family: 'Orbitron', monospace;
+  font-size: 0.9rem;
+  resize: vertical;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.message-input:focus {
+  border-color: #00ffe0;
+  box-shadow: 0 0 20px rgba(0, 255, 224, 0.4);
+  transform: scale(1.01);
+}
+
+.message-input::placeholder {
+  color: #667788;
+  font-style: italic;
+}
+
+.button-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 180px;
+}
+
+.cyber-btn {
+  background: transparent;
+  border: 2px solid #00ffe0;
+  border-radius: 10px;
+  color: #00ffe0;
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  position: relative;
+  overflow: hidden;
+}
+
+.cyber-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 224, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.cyber-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 255, 224, 0.4);
+  text-shadow: 0 0 10px #00ffe0;
+}
+
+.cyber-btn:hover::before {
+  left: 100%;
+}
+
+.cyber-btn.primary {
+  border-color: #ff0080;
+  color: #ff0080;
+  box-shadow: 0 0 15px rgba(255, 0, 128, 0.3);
+}
+
+.cyber-btn.primary:hover {
+  box-shadow: 0 10px 25px rgba(255, 0, 128, 0.5);
+  text-shadow: 0 0 10px #ff0080;
+}
+
+.result-area {
+  margin-top: 2rem;
+}
+
+.result-header {
+  font-size: 1.1rem;
+  color: #00ffe0;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-shadow: 0 0 10px #00ffe0;
+}
+
+.result-box {
+  padding: 2rem;
+  border-radius: 15px;
+  font-size: 1.8rem;
+  font-weight: 900;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+  transition: all 0.5s ease;
+}
+
+.result-safe {
+  background: linear-gradient(135deg, #00ff88, #00cc66);
+  color: #002211;
+  box-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
+}
+
+.result-caution {
+  background: linear-gradient(135deg, #ffaa00, #ff8800);
+  color: #331100;
+  box-shadow: 0 0 30px rgba(255, 170, 0, 0.5);
+}
+
+.result-danger {
+  background: linear-gradient(135deg, #ff3333, #cc0000);
+  color: #ffffff;
+  box-shadow: 0 0 35px rgba(255, 51, 51, 0.6);
+  animation: dangerPulse 2s ease-in-out infinite;
+}
+
+@keyframes dangerPulse {
+  0%, 100% { transform: scale(1); filter: brightness(1); }
+  50% { transform: scale(1.02); filter: brightness(1.2); }
+}
+
+.result-note {
+  padding: 1rem;
+  background: rgba(0, 255, 224, 0.05);
+  border: 1px solid rgba(0, 255, 224, 0.2);
+  border-radius: 10px;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #ccf8ff;
+  margin-bottom: 2rem;
+}
+
+.confidence-area {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(0, 255, 224, 0.05);
+  border-radius: 10px;
+  border: 1px solid rgba(0, 255, 224, 0.2);
+}
+
+.confidence-label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #00ffe0;
+  min-width: 100px;
+}
+
+.confidence-bar {
+  flex: 1;
+  height: 10px;
+  background: rgba(0, 34, 68, 0.8);
+  border-radius: 5px;
+  overflow: hidden;
+  border: 1px solid #004466;
+}
+
+.confidence-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ff3333, #ffaa00, #00ff88);
+  width: 95%;
+  transition: width 1s ease;
+  border-radius: 5px;
+}
+
+.confidence-percent {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #00ffe0;
+  min-width: 40px;
+}
+
+.scanner-area {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  margin: 4rem auto;
+}
+
+.scanner-outer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 3px solid #00ffe0;
+  border-radius: 50%;
+  box-shadow: 0 0 30px #00ffe0;
+  animation: scanRotate 10s linear infinite;
+}
+
+.scanner-middle {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  border: 2px solid #ff0080;
+  border-radius: 50%;
+  box-shadow: 0 0 20px #ff0080;
+  animation: scanRotate 7s linear infinite reverse;
+}
+
+.scanner-core {
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  right: 50px;
+  bottom: 50px;
+  background: radial-gradient(circle, #8000ff 0%, transparent 70%);
+  border-radius: 50%;
+  box-shadow: 0 0 40px #8000ff;
+  animation: corePulse 3s ease-in-out infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.core-center {
+  font-size: 2rem;
+  animation: coreRotate 4s ease-in-out infinite;
+}
+
+.scanner-beam {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00ffe0, transparent);
+  transform: translate(-50%, -50%);
+  animation: beamSweep 2s linear infinite;
+  transform-origin: center;
+}
+
+@keyframes scanRotate {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes corePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+@keyframes coreRotate {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2) rotate(180deg); }
+}
+
+@keyframes beamSweep {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.footer-area {
+  margin-top: 4rem;
+  padding: 3rem;
+  background: rgba(0, 17, 34, 0.9);
+  border: 2px solid #00ffe0;
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(0, 255, 224, 0.2);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.footer-section {
+  text-align: center;
+}
+
+.footer-label {
+  font-size: 1.1rem;
+  color: #00ffe0;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-shadow: 0 0 10px #00ffe0;
+}
+
+.developer-name {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #ff0080;
+  text-shadow: 0 0 20px #ff0080;
+  animation: nameGlow 3s ease-in-out infinite;
+}
+
+@keyframes nameGlow {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.email-link {
+  display: inline-block;
+  padding: 1rem 2rem;
+  background: transparent;
+  border: 2px solid #00ffe0;
+  border-radius: 10px;
+  color: #00ffe0;
+  text-decoration: none;
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.email-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 255, 224, 0.1);
+  transition: left 0.5s;
+}
+
+.email-link:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0, 255, 224, 0.4);
+  text-shadow: 0 0 15px #00ffe0;
+}
+
+.email-link:hover::before {
+  left: 100%;
+}
+
+@media (max-width: 768px) {
+  .main-title, .brand-title {
+    font-size: 3rem;
+  }
+
+  .input-section {
+    flex-direction: column;
+  }
+
+  .button-panel {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-title, .brand-title {
+    font-size: 2.2rem;
+  }
+
+  .result-box {
+    font-size: 1.5rem;
+  }
+}
+</style>
 </head>
-
 <body>
-  <main>
-    <h1 class="title">Welcome to HTML on Replit!</h1>
-    <p class="description">Get started by editing
-      <code class="code">index.html</code>. The webview will auto-refresh as you edit! (See <code
-        class="code">README.md</code> if you want to
-      disable auto-refresh.)
-    </p>
+<div class="cyber-grid"></div>
+<div class="hologram-lines">
+  <div class="scan-line"></div>
+  <div class="scan-line"></div>
+  <div class="scan-line"></div>
+  <div class="scan-line"></div>
+</div>
+<div class="cyber-lights" id="cyberLights"></div>
+<div class="loading-screen" id="loadingScreen">
+  <div class="loading-content">
+    <div class="loading-logo">🔬 AI-BASED SCAM DETECTOR 🔬</div>
+    <div class="loading-brand">⚡ BY NIDHIN R ⚡</div>
+    <div class="loading-spinner">
+      <div class="spinner-ring ring-outer"></div>
+      <div class="spinner-ring ring-inner"></div>
+      <div class="spinner-core">🤖</div>
+    </div>
+    <div class="loading-text">INITIALIZING AI SYSTEMS...</div>
+  </div>
+</div>
+<div class="main-container" id="mainContainer">
+  <div class="header-section">
+    <h1 class="main-title" data-text="🔍 AI-BASED SCAM MESSAGE DETECTOR 🔍">🔍 AI-BASED SCAM MESSAGE DETECTOR 🔍</h1>
+    <div class="brand-title" data-text="⚡ BY NIDHIN R ⚡">⚡ BY NIDHIN R ⚡</div>
+  </div>
+  <div class="detector-panel">
+    <div class="panel-header">
+      <span class="status-icon">🛡️</span>
+      <span class="panel-title">AI THREAT ANALYSIS TERMINAL</span>
+      <span class="status-online">🟢 ONLINE</span>
+    </div>
+    <div class="input-section">
+      <div class="input-area">
+        <label class="input-label">📝 MESSAGE INPUT:</label>
+        <textarea id="messageInput" class="message-input" placeholder="Paste suspicious message here for AI threat analysis..."></textarea>
+      </div>
+      <div class="button-panel">
+        <button id="pasteBtn" class="cyber-btn">📋 PASTE</button>
+        <button id="analyzeBtn" class="cyber-btn primary">🔍 ANALYZE</button>
+        <button id="speakBtn" class="cyber-btn">🔊 SPEAK</button>
+        <button id="clearBtn" class="cyber-btn">🗑️ CLEAR</button>
+      </div>
+    </div>
+    <div class="result-area">
+      <div class="result-header">🎯 THREAT ANALYSIS RESULT:</div>
+      <div id="resultBox" class="result-box result-safe">🟢 SYSTEM READY</div>
+      <div id="resultNote" class="result-note">AI systems standing by for threat analysis...</div>
+      <div class="confidence-area">
+        <span class="confidence-label">CONFIDENCE:</span>
+        <div class="confidence-bar">
+          <div id="confidenceFill" class="confidence-fill"></div>
+        </div>
+        <span id="confidencePercent" class="confidence-percent">95%</span>
+      </div>
+    </div>
+  </div>
+  <div class="scanner-area">
+    <div class="scanner-outer"></div>
+    <div class="scanner-middle"></div>
+    <div class="scanner-core">
+      <div class="core-center">🤖</div>
+    </div>
+    <div class="scanner-beam"></div>
+  </div>
+  <div class="footer-area">
+    <div class="footer-grid">
+      <div class="footer-section">
+        <div class="footer-label">👨‍💻 DEVELOPED BY</div>
+        <div class="developer-name">NIDHIN R</div>
+      </div>
+      <div class="footer-section">
+        <div class="footer-label">📧 CONTACT</div>
+        <a href="mailto:r.nidhinofficial@gmail.com" class="email-link">r.nidhinofficial@gmail.com</a>
+      </div>
+    </div>
+  </div>
+</div>
 
-    <section class="grid">
-      <a href="https://replit.com/learn" class='card'>
-        <h2>Learn &rarr;</h2>
-        <p>Find tutorials on Replit to learn more.</p>
-      </a>
+<script>
+window.addEventListener('load', function() {
+  setTimeout(function() {
+    document.getElementById('loadingScreen').style.opacity = '0';
+    setTimeout(function() {
+      document.getElementById('loadingScreen').style.display = 'none';
+      document.getElementById('mainContainer').classList.add('loaded');
+    }, 1000);
+  }, 4000);
+});
 
-      <a href="https://docs.replit.com/category/deployments" class='card'>
-        <h2>Deploy &rarr;</h2>
-        <p>
-          After you are happy with this app, deploy it on Replit!
-        </p>
-      </a>
-    </section>
-  </main>
+function createCyberLights() {
+  const container = document.getElementById('cyberLights');
+  for (let i = 0; i < 25; i++) {
+    const light = document.createElement('div');
+    light.className = 'light';
+    light.style.top = Math.random() * 100 + '%';
+    light.style.left = Math.random() * 100 + '%';
+    light.style.animationDelay = Math.random() * 2 + 's';
+    container.appendChild(light);
+  }
+}
 
-  <script type="module" src="script.js"></script>
+const scamKeywords = [
+  'urgent', 'winner', 'congratulations', 'claim now', 'limited time', 'act now', 'free money',
+  'guaranteed', 'no risk', 'click here', 'verify account', 'suspended', 'expires today',
+  'prince', 'inheritance', 'lottery', 'cash prize', 'million dollars', 'transfer funds',
+  'tax refund', 'bitcoin', 'cryptocurrency', 'investment opportunity', 'exclusive offer'
+];
 
+function analyzeMessage(text) {
+  const lowerText = text.toLowerCase();
+  let riskScore = 0;
+  let detectedKeywords = [];
+
+  scamKeywords.forEach(keyword => {
+    if (lowerText.includes(keyword)) {
+      riskScore += 10;
+      detectedKeywords.push(keyword);
+    }
+  });
+
+  const urlMatches = text.match(/https?:\/\/[^\s]+/g);
+  if (urlMatches && urlMatches.length > 0) {
+    riskScore += urlMatches.length * 15;
+  }
+
+  const urgencyWords = ['urgent', 'immediately', 'now', 'asap', 'hurry'];
+  const urgencyCount = urgencyWords.filter(word => lowerText.includes(word)).length;
+  if (urgencyCount > 1) {
+    riskScore += 15;
+  }
+
+  if (/\b\d{3}[-.]?\d{3}[-.]?\d{4}\b/.test(text)) {
+    riskScore += 12;
+  }
+
+  let result;
+  let confidence = Math.min(95, Math.max(60, 95 - (riskScore * 0.4)));
+
+  if (riskScore >= 50) {
+    result = {
+      status: 'danger',
+      message: '🚨 CRITICAL SCAM DETECTED',
+      note: `EXTREME DANGER: Multiple scam indicators detected. DO NOT ENGAGE. Detected: ${detectedKeywords.slice(0, 4).join(', ')}`,
+      confidence: Math.max(85, confidence)
+    };
+  } else if (riskScore >= 30) {
+    result = {
+      status: 'danger',
+      message: '🚨 SCAM ALERT',
+      note: `HIGH RISK: Strong scam patterns identified. Detected: ${detectedKeywords.slice(0, 4).join(', ')}`,
+      confidence: Math.max(80, confidence)
+    };
+  } else if (riskScore >= 15) {
+    result = {
+      status: 'caution',
+      message: '⚠️ SUSPICIOUS CONTENT',
+      note: `MEDIUM RISK: Potential scam elements found. Elements: ${detectedKeywords.slice(0, 3).join(', ')}`,
+      confidence: Math.max(70, confidence)
+    };
+  } else if (riskScore > 0) {
+    result = {
+      status: 'caution',
+      message: '⚠️ MINOR RISK',
+      note: 'Some suspicious elements detected. Exercise caution.',
+      confidence: Math.max(65, confidence)
+    };
+  } else {
+    result = {
+      status: 'safe',
+      message: '✅ MESSAGE SECURE',
+      note: 'No significant threat indicators detected. Message appears legitimate.',
+      confidence: confidence
+    };
+  }
+
+  return result;
+}
+
+const messageInput = document.getElementById('messageInput');
+const resultBox = document.getElementById('resultBox');
+const resultNote = document.getElementById('resultNote');
+const confidenceFill = document.getElementById('confidenceFill');
+const confidencePercent = document.getElementById('confidencePercent');
+
+document.getElementById('analyzeBtn').addEventListener('click', function() {
+  performAnalysis();
+});
+
+document.getElementById('pasteBtn').addEventListener('click', async function() {
+  try {
+    const clipboardText = await navigator.clipboard.readText();
+    messageInput.value = clipboardText;
+    messageInput.focus();
+    showNotification('📋 Message pasted successfully!');
+  } catch (error) {
+    showNotification('🚫 Clipboard access denied. Use Ctrl+V to paste.');
+  }
+});
+
+document.getElementById('speakBtn').addEventListener('click', function() {
+  const text = resultBox.textContent + '. ' + resultNote.textContent;
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'en-US';
+    utterance.rate = 0.8;
+    window.speechSynthesis.speak(utterance);
+    showNotification('🔊 Reading analysis results...');
+  } else {
+    showNotification('🚫 Speech synthesis not supported.');
+  }
+});
+
+document.getElementById('clearBtn').addEventListener('click', function() {
+  messageInput.value = '';
+  resultBox.textContent = '🟢 SYSTEM READY';
+  resultBox.className = 'result-box result-safe';
+  resultNote.textContent = 'AI systems standing by for threat analysis...';
+  updateConfidence(95);
+  messageInput.focus();
+  showNotification('🗑️ Interface cleared.');
+});
+
+function performAnalysis() {
+  const text = messageInput.value.trim();
+
+  if (!text) {
+    resultBox.textContent = '⚠️ INPUT REQUIRED';
+    resultBox.className = 'result-box result-caution';
+    resultNote.textContent = 'Please enter a message for analysis.';
+    updateConfidence(0);
+    showNotification('⚠️ No message provided for analysis.');
+    return;
+  }
+
+  resultBox.textContent = '🔄 ANALYZING...';
+  resultBox.className = 'result-box result-caution';
+  resultNote.textContent = 'AI neural networks processing threat patterns...';
+  updateConfidence(50);
+
+  setTimeout(function() {
+    const analysis = analyzeMessage(text);
+    resultBox.textContent = analysis.message;
+    resultBox.className = 'result-box result-' + analysis.status;
+    resultNote.textContent = analysis.note;
+    updateConfidence(analysis.confidence);
+
+    if (analysis.status === 'danger') {
+      triggerDangerAlert();
+      showNotification('🚨 CRITICAL THREAT DETECTED!');
+    } else if (analysis.status === 'caution') {
+      showNotification('⚠️ Suspicious content detected.');
+    } else {
+      showNotification('✅ Analysis complete. Message appears safe.');
+    }
+  }, 2000);
+}
+
+function updateConfidence(confidence) {
+  confidenceFill.style.width = confidence + '%';
+  confidencePercent.textContent = confidence + '%';
+}
+
+function triggerDangerAlert() {
+  document.body.style.backgroundColor = '#220000';
+  setTimeout(function() {
+    document.body.style.backgroundColor = '';
+  }, 300);
+
+  const lights = document.querySelectorAll('.light');
+  lights.forEach(function(light, index) {
+    setTimeout(function() {
+      light.style.backgroundColor = '#ff0000';
+      light.style.boxShadow = '0 0 20px #ff0000';
+      setTimeout(function() {
+        light.style.backgroundColor = '';
+        light.style.boxShadow = '';
+      }, 400);
+    }, index * 30);
+  });
+}
+
+function showNotification(message) {
+  const notification = document.createElement('div');
+  notification.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 1rem 2rem;
+    background: rgba(0, 17, 34, 0.95);
+    border: 2px solid #00ffe0;
+    border-radius: 10px;
+    color: #00ffe0;
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    font-size: 0.9rem;
+    z-index: 10000;
+    max-width: 350px;
+    box-shadow: 0 0 20px #00ffe055;
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    transform: translateX(400px);
+    transition: all 0.5s ease;
+  `;
+  notification.textContent = message;
+
+  document.body.appendChild(notification);
+
+  setTimeout(function() {
+    notification.style.opacity = '1';
+    notification.style.transform = 'translateX(0)';
+  }, 100);
+
+  setTimeout(function() {
+    notification.style.opacity = '0';
+    notification.style.transform = 'translateX(400px)';
+    setTimeout(function() {
+      notification.remove();
+    }, 500);
+  }, 3500);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  createCyberLights();
+});
+</script>
 </body>
-
 </html>
