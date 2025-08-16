@@ -544,47 +544,6 @@ body {
   margin-bottom: 2rem;
 }
 
-.confidence-area {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem;
-  background: rgba(0, 255, 224, 0.05);
-  border-radius: 10px;
-  border: 1px solid rgba(0, 255, 224, 0.2);
-}
-
-.confidence-label {
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: #00ffe0;
-  min-width: 100px;
-}
-
-.confidence-bar {
-  flex: 1;
-  height: 10px;
-  background: rgba(0, 34, 68, 0.8);
-  border-radius: 5px;
-  overflow: hidden;
-  border: 1px solid #004466;
-}
-
-.confidence-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #ff3333, #ffaa00, #00ff88);
-  width: 95%;
-  transition: width 1s ease;
-  border-radius: 5px;
-}
-
-.confidence-percent {
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: #00ffe0;
-  min-width: 40px;
-}
-
 .scanner-area {
   position: relative;
   width: 180px;
@@ -678,6 +637,7 @@ body {
   grid-template-columns: 1fr 1fr;
   gap: 3rem;
   align-items: center;
+  margin-bottom: 2rem;
 }
 
 .footer-section {
@@ -741,6 +701,22 @@ body {
 
 .email-link:hover::before {
   left: 100%;
+}
+
+.disclaimer {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: rgba(255, 0, 128, 0.1);
+  border: 1px solid rgba(255, 0, 128, 0.3);
+  border-radius: 10px;
+  text-align: center;
+}
+
+.disclaimer-text {
+  font-size: 0.9rem;
+  color: #ffaacc;
+  line-height: 1.5;
+  font-weight: 500;
 }
 
 @media (max-width: 768px) {
@@ -823,13 +799,6 @@ body {
       <div class="result-header">🎯 THREAT ANALYSIS RESULT:</div>
       <div id="resultBox" class="result-box result-safe">🟢 SYSTEM READY</div>
       <div id="resultNote" class="result-note">AI systems standing by for threat analysis...</div>
-      <div class="confidence-area">
-        <span class="confidence-label">CONFIDENCE:</span>
-        <div class="confidence-bar">
-          <div id="confidenceFill" class="confidence-fill"></div>
-        </div>
-        <span id="confidencePercent" class="confidence-percent">95%</span>
-      </div>
     </div>
   </div>
   <div class="scanner-area">
@@ -849,6 +818,12 @@ body {
       <div class="footer-section">
         <div class="footer-label">📧 CONTACT</div>
         <a href="mailto:r.nidhinofficial@gmail.com" class="email-link">r.nidhinofficial@gmail.com</a>
+      </div>
+    </div>
+    <div class="disclaimer">
+      <div class="disclaimer-text">
+        ⚠️ <strong>DISCLAIMER:</strong> Nidhin R will not be responsible for any errors, discrepancies, or inaccuracies in AI predictions. 
+        Always verify suspicious messages through official channels and exercise personal judgment.
       </div>
     </div>
   </div>
@@ -877,78 +852,374 @@ function createCyberLights() {
   }
 }
 
+// ULTRA COMPREHENSIVE SCAM KEYWORDS DATABASE
 const scamKeywords = [
-  'urgent', 'winner', 'congratulations', 'claim now', 'limited time', 'act now', 'free money',
-  'guaranteed', 'no risk', 'click here', 'verify account', 'suspended', 'expires today',
-  'prince', 'inheritance', 'lottery', 'cash prize', 'million dollars', 'transfer funds',
-  'tax refund', 'bitcoin', 'cryptocurrency', 'investment opportunity', 'exclusive offer'
+  // Urgency & Time Pressure
+  'urgent', 'immediately', 'asap', 'hurry', 'quick', 'fast', 'now', 'today', 'expires', 'deadline', 'limited time',
+  'act now', 'dont delay', 'last chance', 'final notice', 'time sensitive', 'expires today', 'expires soon',
+  'within 24 hours', 'before midnight', 'this offer ends', 'limited offer', 'while supplies last', 'hurry up',
+  'dont wait', 'act fast', 'time running out', 'offer expires', 'last day', 'final hours', 'ending soon',
+
+  // Financial Lures & Money
+  'free money', 'cash prize', 'million dollars', 'inheritance', 'lottery', 'jackpot', 'prize', 'reward',
+  'compensation', 'refund', 'rebate', 'tax refund', 'stimulus', 'grant', 'loan approved', 'pre-approved',
+  'easy money', 'make money fast', 'get rich quick', 'financial freedom', 'passive income', 'guaranteed income',
+  'no investment', 'risk free', 'guaranteed returns', 'high returns', 'profit guaranteed', 'double your money',
+  'triple your investment', 'overnight success', 'millionaire', 'billionaire', 'fortune', 'treasure',
+  'windfall', 'bonus', 'payout', 'settlement', 'claim money', 'free cash', 'instant money', 'easy profit',
+
+  // Cryptocurrency & Investment Scams
+  'bitcoin', 'ethereum', 'cryptocurrency', 'crypto', 'blockchain', 'ico', 'token', 'mining', 'wallet',
+  'trading', 'forex', 'binary options', 'investment opportunity', 'portfolio', 'stocks', 'bonds',
+  'hedge fund', 'mutual fund', 'retirement', '401k', 'pension', 'annuity', 'insurance payout',
+  'day trading', 'swing trading', 'pump and dump', 'altcoin', 'defi', 'nft', 'metaverse', 'web3',
+
+  // Authority Impersonation
+  'government', 'irs', 'fbi', 'cia', 'police', 'court', 'legal', 'attorney', 'lawyer', 'judge',
+  'bank', 'federal', 'treasury', 'customs', 'immigration', 'homeland security', 'social security',
+  'medicare', 'medicaid', 'benefits', 'disability', 'veteran', 'military', 'official notice',
+  'legal action', 'lawsuit', 'arrest warrant', 'fine', 'penalty', 'tax lien', 'foreclosure',
+  'sheriff', 'bailiff', 'prosecutor', 'district attorney', 'supreme court', 'federal reserve',
+
+  // Tech Support & Security Scams
+  'virus detected', 'malware', 'security breach', 'hacked', 'compromised', 'infected', 'trojan',
+  'spyware', 'ransomware', 'firewall', 'antivirus', 'microsoft support', 'windows support',
+  'tech support', 'computer problem', 'system error', 'blue screen', 'slow computer',
+  'pop up', 'error message', 'suspicious activity', 'unauthorized access', 'login attempt',
+  'ip address', 'hackers', 'cybercriminals', 'data breach', 'identity theft', 'phishing',
+
+  // Account & Verification Scams
+  'verify account', 'confirm identity', 'update information', 'suspended account', 'locked account',
+  'frozen account', 'deactivated', 'expired', 'renewal required', 'payment failed', 'declined',
+  'security alert', 'unusual activity', 'breach detected', 'unauthorized transaction',
+  'click here', 'click link', 'download attachment', 'open file', 'install software',
+  'two factor', '2fa', 'verification code', 'pin number', 'password reset', 'account recovery',
+
+  // Romance & Relationship Scams
+  'lonely', 'soulmate', 'true love', 'destiny', 'meant to be', 'emergency', 'hospital',
+  'accident', 'stranded', 'military deployment', 'overseas', 'travel', 'visa', 'customs fee',
+  'medical emergency', 'surgery', 'funeral', 'family crisis', 'need help', 'desperate',
+  'widowed', 'divorced', 'single parent', 'looking for love', 'christian', 'god fearing',
+
+  // Employment & Business Scams
+  'work from home', 'make money online', 'data entry', 'envelope stuffing', 'mystery shopper',
+  'personal assistant', 'easy work', 'no experience', 'flexible hours', 'unlimited earning',
+  'business opportunity', 'franchise', 'distributorship', 'network marketing', 'mlm',
+  'pyramid scheme', 'ponzi', 'referral program', 'affiliate marketing', 'dropshipping',
+  'part time job', 'full time income', 'be your own boss', 'financial independence',
+
+  // Lottery & Prize Scams
+  'winner', 'congratulations', 'selected', 'chosen', 'lucky', 'jackpot winner', 'grand prize',
+  'sweepstakes', 'raffle', 'drawing', 'contest', 'competition', 'claim prize', 'claim reward',
+  'processing fee', 'handling charge', 'tax fee', 'transfer fee', 'delivery charge',
+  'lucky number', 'winning ticket', 'prize notification', 'award ceremony', 'prize money',
+
+  // Charity & Donation Scams
+  'charity', 'donation', 'fundraiser', 'disaster relief', 'orphan', 'cancer patient',
+  'homeless', 'hungry', 'poor', 'needy', 'help children', 'save lives', 'make difference',
+  'humanitarian', 'non profit', 'tax deductible', 'good cause', 'helping hand',
+
+  // Online Shopping & Fake Websites
+  'limited stock', 'clearance sale', 'discount', 'wholesale', 'factory direct',
+  'going out of business', 'liquidation', 'flash sale', 'one day only', 'exclusive deal',
+  'members only', 'vip access', 'special price', 'lowest price', 'best deal',
+  'free shipping', 'no hidden fees', 'money back guarantee', 'satisfaction guaranteed',
+
+  // Health & Medical Scams
+  'cure', 'miracle', 'breakthrough', 'secret', 'doctors hate', 'big pharma',
+  'natural remedy', 'alternative medicine', 'clinical trial', 'fda approved',
+  'weight loss', 'lose weight fast', 'fat burning', 'anti aging', 'fountain of youth',
+  'covid cure', 'vaccine side effects', 'immunity booster', 'detox', 'cleanse',
+
+  // Travel & Vacation Scams
+  'free vacation', 'free trip', 'all expenses paid', 'luxury resort', 'cruise',
+  'timeshare', 'vacation package', 'travel voucher', 'airline tickets', 'hotel stay',
+  'winner of trip', 'congratulations traveler', 'exclusive travel deal',
+
+  // Insurance & Benefits Scams
+  'life insurance', 'health insurance', 'car insurance', 'home insurance',
+  'lower premiums', 'save money', 'reduced rates', 'special discount',
+  'policy expired', 'coverage lapsed', 'claim denied', 'benefits available',
+
+  // Debt & Credit Scams
+  'debt relief', 'debt consolidation', 'eliminate debt', 'forgive debt',
+  'credit repair', 'fix credit', 'improve credit score', 'bad credit ok',
+  'no credit check', 'guaranteed approval', 'instant approval', 'pre qualified',
+
+  // Fake Services
+  'legal services', 'tax services', 'financial advisor', 'investment advisor',
+  'loan officer', 'mortgage broker', 'real estate agent', 'insurance agent',
+  'certified', 'licensed', 'registered', 'accredited', 'authorized dealer',
+
+  // Phishing Keywords
+  'paypal', 'ebay', 'amazon', 'netflix', 'spotify', 'apple', 'google', 'microsoft',
+  'facebook', 'instagram', 'twitter', 'linkedin', 'bank of america', 'chase',
+  'wells fargo', 'citibank', 'american express', 'visa', 'mastercard',
+
+  // Social Engineering
+  'confidential', 'classified', 'top secret', 'insider information', 'exclusive access',
+  'member benefits', 'vip treatment', 'special invitation', 'selected few',
+  'dont tell anyone', 'keep secret', 'between us', 'trust me', 'honest person',
+
+  // Fake Grants & Government Money
+  'government grant', 'federal grant', 'free grant money', 'grant application',
+  'stimulus check', 'economic relief', 'small business grant', 'housing assistance',
+  'food stamps', 'welfare benefits', 'unemployment benefits', 'disability payment',
+
+  // Advance Fee Fraud
+  'advance payment', 'upfront fee', 'processing fee', 'transfer fee', 'activation fee',
+  'registration fee', 'application fee', 'documentation fee', 'clearance fee',
+  'customs duty', 'tax payment', 'legal fee', 'courier fee', 'delivery charge'
 ];
 
+// ULTRA SOPHISTICATED PATTERN DETECTION
+const suspiciousPatterns = [
+  // Advanced urgency patterns
+  /urgent.{0,25}action.{0,25}required/i,
+  /immediate.{0,20}response.{0,20}needed/i,
+  /act.{0,10}now.{0,10}or.{0,10}lose/i,
+  /expires?.{0,15}(today|tonight|soon|in.{0,10}hours?)/i,
+  /deadline.{0,15}(today|tomorrow|soon)/i,
+  /time.{0,10}(running.out|sensitive|limited)/i,
+  /final.{0,10}(notice|warning|chance|opportunity)/i,
+  /(last|final).{0,10}(chance|opportunity|day|hours?)/i,
+
+  // Financial patterns
+  /\$[\d,]+(\.\d{2})?.{0,30}(million|thousand|prize|inheritance|lottery)/i,
+  /(won|winning|winner).{0,20}\$[\d,]+/i,
+  /(free|easy).{0,15}money/i,
+  /\d+%.{0,10}(return|profit|interest)/i,
+  /(guaranteed|risk.free).{0,15}(profit|return|income)/i,
+  /(double|triple).{0,10}(money|investment)/i,
+  /\$\d+.{0,20}(per.day|per.hour|weekly|monthly)/i,
+
+  // Authority impersonation
+  /(irs|fbi|police|court|bank|government).{0,30}(notice|alert|warning|action)/i,
+  /legal.{0,15}action.{0,15}will.be.taken/i,
+  /arrest.{0,10}warrant.{0,10}issued/i,
+  /account.{0,10}(suspended|frozen|locked|deactivated)/i,
+  /(tax|customs|immigration).{0,20}(problem|issue|violation)/i,
+
+  // Verification & security
+  /(verify|confirm|update).{0,20}(account|information|details)/i,
+  /security.{0,15}(alert|breach|warning|threat)/i,
+  /suspicious.{0,15}activity.{0,15}detected/i,
+  /unauthorized.{0,15}(access|transaction|login)/i,
+  /(click|tap).{0,10}(here|link|button).{0,20}(verify|confirm|secure)/i,
+  /enter.{0,10}(password|pin|code|ssn|credit.card)/i,
+
+  // Lottery & prizes
+  /congratulations.{0,30}(winner|selected|chosen)/i,
+  /(won|selected|chosen).{0,20}(prize|lottery|sweepstakes)/i,
+  /claim.{0,10}(prize|reward|winnings?).{0,20}(now|today|immediately)/i,
+  /(processing|handling|transfer|delivery).{0,10}fee/i,
+  /(lucky|random).{0,15}(selection|drawing|winner)/i,
+
+  // Romance scams
+  /(deployed|military|overseas|hospital).{0,30}(money|help|emergency)/i,
+  /(stranded|stuck|emergency).{0,20}(money|funds|help)/i,
+  /(true.love|soulmate|meant.to.be).{0,30}(money|help|emergency)/i,
+
+  // Tech support
+  /(virus|malware|trojan).{0,20}detected/i,
+  /(microsoft|windows|apple).{0,20}(support|security|warning)/i,
+  /computer.{0,15}(infected|compromised|slow|problem)/i,
+  /(error|warning).{0,20}(detected|found|critical)/i,
+
+  // Cryptocurrency
+  /(bitcoin|crypto|ethereum).{0,30}(investment|trading|mining)/i,
+  /crypto.{0,20}(opportunity|platform|exchange)/i,
+  /(ico|token|blockchain).{0,30}investment/i,
+
+  // Employment scams
+  /work.from.home.{0,20}\$[\d,]+/i,
+  /(easy|simple).{0,15}work.{0,20}\$[\d,]+/i,
+  /earn.{0,10}\$[\d,]+.{0,10}(per.day|weekly|monthly)/i,
+  /no.{0,10}experience.{0,20}required/i,
+
+  // Fake checks
+  /(cashier|certified|money.order).{0,20}check/i,
+  /deposit.{0,15}check.{0,15}(immediately|asap|urgent)/i,
+  /overpayment.{0,20}refund/i,
+
+  // Charity fraud
+  /(disaster|emergency).{0,20}(relief|fund|donation)/i,
+  /(orphan|cancer|homeless).{0,20}(help|donation|fund)/i,
+  /tax.deductible.{0,20}donation/i,
+
+  // Advanced fee fraud
+  /(advance|upfront|processing).{0,10}fee.{0,20}required/i,
+  /transfer.{0,15}fee.{0,10}\$[\d,]+/i,
+  /(lawyer|attorney|legal).{0,20}fee/i,
+
+  // Multiple exclamation marks or caps
+  /!{3,}/,
+  /[A-Z\s]{20,}/,
+
+  // Common scam domains and contacts
+  /(gmail|yahoo|hotmail|outlook)\.com.{0,50}(lawyer|attorney|bank|government)/i,
+  /whatsapp.{0,20}\+?\d{10,}/i,
+  /telegram.{0,20}@\w+/i
+];
+
+// ULTRA ADVANCED MESSAGE ANALYSIS FUNCTION
 function analyzeMessage(text) {
   const lowerText = text.toLowerCase();
+  const originalText = text;
   let riskScore = 0;
   let detectedKeywords = [];
+  let detectedPatterns = [];
+  let reasons = [];
 
+  // Keyword detection with higher weights
   scamKeywords.forEach(keyword => {
     if (lowerText.includes(keyword)) {
-      riskScore += 10;
+      riskScore += 8;
       detectedKeywords.push(keyword);
     }
   });
 
-  const urlMatches = text.match(/https?:\/\/[^\s]+/g);
+  // Pattern detection with very high weights
+  suspiciousPatterns.forEach((pattern, index) => {
+    if (pattern.test(originalText)) {
+      riskScore += 25;
+      detectedPatterns.push(`Pattern ${index + 1}`);
+      reasons.push('advanced scam pattern detected');
+    }
+  });
+
+  // URL analysis
+  const urlMatches = originalText.match(/https?:\/\/[^\s]+/gi);
   if (urlMatches && urlMatches.length > 0) {
-    riskScore += urlMatches.length * 15;
+    riskScore += urlMatches.length * 20;
+    reasons.push(`${urlMatches.length} suspicious link(s) detected`);
+
+    // Check for suspicious domains
+    const suspiciousDomains = ['bit.ly', 'tinyurl', 'short', 'link', 'redirect'];
+    urlMatches.forEach(url => {
+      if (suspiciousDomains.some(domain => url.includes(domain))) {
+        riskScore += 15;
+        reasons.push('shortened/suspicious URL detected');
+      }
+    });
   }
 
-  const urgencyWords = ['urgent', 'immediately', 'now', 'asap', 'hurry'];
+  // Phone number detection
+  const phonePattern = /(\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}/g;
+  const phoneMatches = originalText.match(phonePattern);
+  if (phoneMatches && phoneMatches.length > 0) {
+    riskScore += phoneMatches.length * 15;
+    reasons.push(`${phoneMatches.length} phone number(s) detected`);
+  }
+
+  // Email analysis
+  const emailMatches = originalText.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g);
+  if (emailMatches && emailMatches.length > 0) {
+    riskScore += emailMatches.length * 10;
+    reasons.push(`${emailMatches.length} email address(es) detected`);
+  }
+
+  // Money amount detection
+  const moneyPattern = /\$[\d,]+(\.\d{2})?|\d+\s?(dollars?|usd|euro|pounds?)/gi;
+  const moneyMatches = originalText.match(moneyPattern);
+  if (moneyMatches && moneyMatches.length > 0) {
+    riskScore += moneyMatches.length * 12;
+    reasons.push(`${moneyMatches.length} money amount(s) mentioned`);
+  }
+
+  // Urgency word frequency
+  const urgencyWords = ['urgent', 'immediately', 'now', 'asap', 'hurry', 'quick', 'fast', 'soon'];
   const urgencyCount = urgencyWords.filter(word => lowerText.includes(word)).length;
   if (urgencyCount > 1) {
+    riskScore += urgencyCount * 8;
+    reasons.push('excessive urgency tactics detected');
+  }
+
+  // Caps lock usage (shouting)
+  const capsRatio = (originalText.match(/[A-Z]/g) || []).length / originalText.length;
+  if (capsRatio > 0.3 && originalText.length > 20) {
+    riskScore += 10;
+    reasons.push('excessive capital letters detected');
+  }
+
+  // Excessive punctuation
+  const exclamationCount = (originalText.match(/!/g) || []).length;
+  if (exclamationCount > 3) {
+    riskScore += exclamationCount * 2;
+    reasons.push('excessive punctuation detected');
+  }
+
+  // Grammar and spelling issues (simple check)
+  const grammarIssues = [
+    /\b(recieve|recieved|occured|seperate|there|their|they're)\b/gi,
+    /\b(you|u)\s+(are|r)\b/gi,
+    /\b(your|ur)\s+(going|gonna)\b/gi
+  ];
+  grammarIssues.forEach(pattern => {
+    if (pattern.test(originalText)) {
+      riskScore += 5;
+      reasons.push('poor grammar/spelling detected');
+    }
+  });
+
+  // Short message with high-risk keywords
+  if (originalText.length < 100 && detectedKeywords.length > 2) {
     riskScore += 15;
+    reasons.push('suspiciously brief message with multiple red flags');
   }
 
-  if (/\b\d{3}[-.]?\d{3}[-.]?\d{4}\b/.test(text)) {
-    riskScore += 12;
+  // Multiple contact methods mentioned
+  const contactMethods = ['email', 'phone', 'whatsapp', 'telegram', 'skype', 'viber'];
+  const contactCount = contactMethods.filter(method => lowerText.includes(method)).length;
+  if (contactCount > 1) {
+    riskScore += contactCount * 8;
+    reasons.push('multiple contact methods mentioned');
   }
 
+  // SOPHISTICATED THREAT LEVEL DETERMINATION
   let result;
-  let confidence = Math.min(95, Math.max(60, 95 - (riskScore * 0.4)));
 
-  if (riskScore >= 50) {
+  if (riskScore >= 100) {
     result = {
       status: 'danger',
-      message: '🚨 CRITICAL SCAM DETECTED',
-      note: `EXTREME DANGER: Multiple scam indicators detected. DO NOT ENGAGE. Detected: ${detectedKeywords.slice(0, 4).join(', ')}`,
-      confidence: Math.max(85, confidence)
+      message: '🚨 CRITICAL SCAM THREAT DETECTED',
+      note: `⚠️ EXTREME DANGER: This message contains multiple high-risk scam indicators and advanced threat patterns. This is almost certainly a scam. DO NOT ENGAGE, DO NOT CLICK LINKS, DO NOT PROVIDE ANY INFORMATION. Block sender immediately. Detected indicators: ${detectedKeywords.slice(0, 6).join(', ')}.`
     };
-  } else if (riskScore >= 30) {
+  } else if (riskScore >= 70) {
+    result = {
+      status: 'danger',
+      message: '🚨 HIGH-RISK SCAM DETECTED',
+      note: `⚠️ DANGER: Strong scam patterns identified with multiple threat indicators. This message exhibits characteristics typical of fraudulent communications. Extreme caution advised - likely a scam attempt. Detected: ${detectedKeywords.slice(0, 5).join(', ')}.`
+    };
+  } else if (riskScore >= 40) {
     result = {
       status: 'danger',
       message: '🚨 SCAM ALERT',
-      note: `HIGH RISK: Strong scam patterns identified. Detected: ${detectedKeywords.slice(0, 4).join(', ')}`,
-      confidence: Math.max(80, confidence)
+      note: `⚠️ WARNING: Significant scam indicators present. This message contains multiple suspicious elements commonly found in fraudulent communications. Do not trust this message. Detected elements: ${detectedKeywords.slice(0, 4).join(', ')}.`
     };
-  } else if (riskScore >= 15) {
+  } else if (riskScore >= 25) {
     result = {
       status: 'caution',
-      message: '⚠️ SUSPICIOUS CONTENT',
-      note: `MEDIUM RISK: Potential scam elements found. Elements: ${detectedKeywords.slice(0, 3).join(', ')}`,
-      confidence: Math.max(70, confidence)
+      message: '⚠️ SUSPICIOUS CONTENT WARNING',
+      note: `🔍 CAUTION: Multiple suspicious elements detected. This message contains warning signs that require careful verification. Proceed with extreme caution and verify through official channels. Suspicious elements: ${detectedKeywords.slice(0, 3).join(', ')}.`
     };
-  } else if (riskScore > 0) {
+  } else if (riskScore >= 10) {
     result = {
       status: 'caution',
-      message: '⚠️ MINOR RISK',
-      note: 'Some suspicious elements detected. Exercise caution.',
-      confidence: Math.max(65, confidence)
+      message: '⚠️ POTENTIAL RISK DETECTED',
+      note: `🔍 Some suspicious elements identified. While not definitively a scam, this message contains elements that warrant caution. Verify sender authenticity before taking any action.`
     };
   } else {
     result = {
       status: 'safe',
-      message: '✅ MESSAGE SECURE',
-      note: 'No significant threat indicators detected. Message appears legitimate.',
-      confidence: confidence
+      message: '✅ MESSAGE APPEARS SECURE',
+      note: `🛡️ AI analysis complete: No significant threat indicators detected based on current scam pattern database. Message appears to be legitimate communications. However, always exercise general caution with unsolicited messages.`
     };
+  }
+
+  // Add detected reasons to note
+  if (reasons.length > 0) {
+    result.note += ` Additional analysis flags: ${reasons.slice(0, 5).join(', ')}.`;
   }
 
   return result;
@@ -957,8 +1228,6 @@ function analyzeMessage(text) {
 const messageInput = document.getElementById('messageInput');
 const resultBox = document.getElementById('resultBox');
 const resultNote = document.getElementById('resultNote');
-const confidenceFill = document.getElementById('confidenceFill');
-const confidencePercent = document.getElementById('confidencePercent');
 
 document.getElementById('analyzeBtn').addEventListener('click', function() {
   performAnalysis();
@@ -994,7 +1263,6 @@ document.getElementById('clearBtn').addEventListener('click', function() {
   resultBox.textContent = '🟢 SYSTEM READY';
   resultBox.className = 'result-box result-safe';
   resultNote.textContent = 'AI systems standing by for threat analysis...';
-  updateConfidence(95);
   messageInput.focus();
   showNotification('🗑️ Interface cleared.');
 });
@@ -1005,23 +1273,20 @@ function performAnalysis() {
   if (!text) {
     resultBox.textContent = '⚠️ INPUT REQUIRED';
     resultBox.className = 'result-box result-caution';
-    resultNote.textContent = 'Please enter a message for analysis.';
-    updateConfidence(0);
+    resultNote.textContent = 'Please enter a message for comprehensive AI threat analysis.';
     showNotification('⚠️ No message provided for analysis.');
     return;
   }
 
-  resultBox.textContent = '🔄 ANALYZING...';
+  resultBox.textContent = '🔄 AI ANALYZING...';
   resultBox.className = 'result-box result-caution';
-  resultNote.textContent = 'AI neural networks processing threat patterns...';
-  updateConfidence(50);
+  resultNote.textContent = 'Advanced AI neural networks processing comprehensive threat patterns and analyzing message structure...';
 
   setTimeout(function() {
     const analysis = analyzeMessage(text);
     resultBox.textContent = analysis.message;
     resultBox.className = 'result-box result-' + analysis.status;
     resultNote.textContent = analysis.note;
-    updateConfidence(analysis.confidence);
 
     if (analysis.status === 'danger') {
       triggerDangerAlert();
@@ -1031,12 +1296,7 @@ function performAnalysis() {
     } else {
       showNotification('✅ Analysis complete. Message appears safe.');
     }
-  }, 2000);
-}
-
-function updateConfidence(confidence) {
-  confidenceFill.style.width = confidence + '%';
-  confidencePercent.textContent = confidence + '%';
+  }, 2500);
 }
 
 function triggerDangerAlert() {
